@@ -1,0 +1,7 @@
+log:
+  is_std_out: 'yes'
+  log_level: 'debug'
+  max_age: 7
+  max_size: 100
+  path: 'tmp'
+  rotation_time: 1
