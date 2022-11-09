@@ -5,3 +5,5 @@ log:
   max_size: 100
   path: 'tmp'
   rotation_time: 1
+web:
+  port: 8085

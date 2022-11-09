@@ -1,13 +1,15 @@
 package main
 
 import (
+	"fmt"
 	"github.com/fsnotify/fsnotify"
 	"github.com/spf13/viper"
 	"gopkg.in/yaml.v2"
 	"log"
+	"test-jenkins/route"
 )
 
-func main()  {
+func main() {
 	viper.AddConfigPath("config")
 	viper.SetConfigName("config-test-jenkins")
 	viper.SetConfigType("yaml")
@@ -26,5 +28,9 @@ func main()  {
 	viper.OnConfigChange(func(in fsnotify.Event) {
 		log.Printf("Config file changed: %v", in.Name)
 	})
-	log.Println("ok")
+
+	g := route.Router()
+
+	log.Printf("Server is running at %d port.", viper.GetInt("web.port"))
+	log.Fatalf("root err:%s", g.Run(fmt.Sprintf("%s:%d", "0.0.0.0", viper.GetInt("web.port"))))
 }
